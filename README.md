@@ -1,6 +1,6 @@
 # Luke's dotfiles
 
-<p> .vim mostly comes from </p> [pfernandez](https://github.com/pfernandez/)
+.vim mostly comes from [pfernandez](https://github.com/pfernandez/).
 
 ## Install
 
