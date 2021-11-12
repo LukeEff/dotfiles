@@ -1,0 +1,449 @@
+
+runtime utils.vim
+call UseDuringSu()
+
+
+" Load plugins
+call FetchPluginsIfMissing()
+call plug#begin()
+Plug 'flazz/vim-colorschemes'
+Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'elzr/vim-json'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'dyng/ctrlsf.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'hecal3/vim-leader-guide'
+Plug 'Chiel92/vim-autoformat'
+Plug 'shime/vim-livedown', { 'do': 'npm install -g livedown' }
+Plug 'jszakmeister/vim-togglecursor'
+Plug 'jiangmiao/auto-pairs'
+Plug 'junegunn/goyo.vim'
+Plug 'vim-scripts/dbext.vim'
+Plug 'rickhowe/diffchar.vim'
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sleuth'
+Plug 'itchyny/vim-gitbranch'
+Plug 'yegappan/mru'
+Plug 'mhinz/vim-startify'
+Plug 'psliwka/vim-smoothie'
+Plug 'airblade/vim-rooter'
+Plug 'bogado/file-line'
+call plug#end()
+silent! helptags ALL
+
+
+" General settings
+set termencoding=utf-8             " default character encoding
+set nowrap                         " no line wrap
+set number                         " line numbers
+set cursorline                     " highlight current line
+set ignorecase                     " case-insensitive search
+set smartcase                      " case-sensitive when caps used
+set hlsearch                       " search highlighting
+set incsearch                      " search while typing
+set autoread                       " reload on file change
+set hidden                         " hide buffers without confirmation
+set autowriteall                   " save buffers before hiding
+set splitbelow                     " horizontal split below
+set splitright                     " vertical split right
+set path=$PWD/**                   " recusive file search from pwd
+set noswapfile                     " don't create backup files
+set mouse=a                        " mouse support
+set clipboard=unnamedplus          " share the system clipboard
+set wildmenu                       " command line completion
+set wildchar=<Tab>                 " tab completion
+set wildmode=list:longest,full     " completion mode
+set nofixendofline                 " leave newline at end of file as-is
+set textwidth=80                   " witdth for text wrapping
+set colorcolumn=+1                 " vertical line at 1 column past textwidth
+set completeopt+=menuone,noselect  " completion display style
+set shortmess+=cF                  " shut off completion messages
+set belloff+=ctrlg                 " prevent beeps during completion
+set sessionoptions-=blank          " things to restore with :mksession
+set scrolloff=999                  " keep cursor vertically centered
+set diffopt+=vertical              " always show diffs side-by-side
+set signcolumn=yes
+
+
+if !IsNeovim()
+  set shellcmdflag=-ic             " use .bashrc with ! shell commands
+  set term=xterm-256color
+  set signcolumn=number            " warning signs, etc. in number column
+endif
+
+
+" Code folding
+"set foldmethod=syntax
+set foldmethod=manual
+"set nofoldenable
+"set foldopen-=block
+
+
+" Indentation - Currently trying out vim-sleuth instead.
+set expandtab                     " spaces instead of tabs
+set tabstop=2                     " tab character width
+set softtabstop=2                 " interact as if tabs were enabled
+set shiftwidth=2                  " auto indentation width
+set backspace=indent,eol,start
+set autoindent
+filetype plugin indent on
+
+
+" Colors
+syntax on
+set termguicolors
+"set background=dark
+"highlight ColorColumn ctermbg=Black
+"highlight! link SignColumn LineNr
+"autocmd ColorScheme * highlight CocHighlightText term=underline
+colorscheme jellyx
+highlight CursorLine guibg=Grey12
+
+
+" Vimdiff highlighting
+set diffopt+=iwhite
+set diffexpr=""
+if &diff | colorscheme molokai | endif
+
+
+" Highlight current word with *, but don't jump to the next occurence
+nnoremap * :keepjumps normal! mi*`i<CR>
+
+
+" Override filetype settings for comment insertion
+autocmd FileType * set formatoptions-=ro
+
+
+" Add filetypes
+autocmd BufNewFile,BufRead *.md set filetype=markdown
+autocmd BufNewFile,BufRead *.php.tpl set filetype=php
+
+
+" Wrap lines in text files
+autocmd BufReadPost,BufNewFile *.md setlocal wrap linebreak
+
+
+" Leader key
+noremap <Space> <Nop>
+let mapleader = "\<Space>"
+let maplocalleader = "\<Space>"
+
+
+" vim-leader-guide
+let g:leaderGuide_map = {}
+call leaderGuide#register_prefix_descriptions('<Space>', 'g:leaderGuide_map')
+nnoremap <silent> <Leader> :<C-u>LeaderGuide '<Space>'<CR>
+vnoremap <silent> <Leader> :<C-u>LeaderGuideVisual '<Space>'<CR>
+
+
+" General leader key commands
+call SetLeaderCommand('.', 'source vimrc', ':so ~/.vim/vimrc<CR>')
+call SetLeaderCommand('%', 'copy file path', ':let @+=expand("%")<CR>')
+call SetLeaderCommand('c', 'open command line editor', ':<C-f>')
+call SetLeaderCommand('d', 'distraction-free mode',   ':Goyo<CR>')
+call SetLeaderCommand('f', 'find word in project (m to replace)', '<Plug>CtrlSFCCwordPath<CR>')
+call SetLeaderCommand('F', 'find in project (prompt)', '<Plug>CtrlSFPrompt')
+call SetLeaderCommand('g', 'copy Github link', ':exe line(".")."GBrowse!"<CR>')
+call SetLeaderCommand('h', 'file history', ':MRU<CR>')
+call SetLeaderCommand('l', 'insert console.log statement',':call GetLogStatement()<CR>')
+call SetLeaderCommand('n', 'toggle relative line numbers',':call ToggleRelativeLineNumbers()<CR>')
+call SetLeaderCommand('m', 'markdown preview', ':LivedownToggle<CR>')
+call SetLeaderCommand('o', 'open file', ':CtrlP<CR>')
+call SetLeaderCommand('p', 'manage plugins', ':call feedkeys(":Plug\<Tab>", "tn")<CR>')
+call SetLeaderCommand('t', 'startify', ':Startify<CR>')
+call SetLeaderCommand('v', 'edit vimrc', ':e ~/.vim/vimrc<CR>')
+
+call SetLeaderCommand('ds', 'document symbols', ':<C-u>CocList -I symbols<cr>')
+call SetLeaderCommand('ol', 'document outline', '<Plug>(coc-list-outline)')
+call SetLeaderCommand('rn', 'rename symbol', '<Plug>(coc-rename)')
+call SetLeaderCommand('qf', 'coc quick fix', '<Plug>(coc-fix-current)')
+call SetLeaderCommand('pl', 'coc prev list', ':<C-u>CocListResume<CR>')
+call SetLeaderCommand('oi', 'organize imports', ':call CocAction("runCommand", "editor.action.organizeImport")')
+
+" Structural editing
+call SetLeaderCommand('`', 'wrap `', 'i``<Esc>:call AutoPairsFastWrap()<CR><Esc>')
+call SetLeaderCommand("'", "wrap '", "i''<Esc>:call AutoPairsFastWrap()<CR><Esc>")
+call SetLeaderCommand('"', 'wrap "', 'i""<Esc>:call AutoPairsFastWrap()<CR><Esc>')
+call SetLeaderCommand('<', 'wrap <', 'i<><Esc>:call AutoPairsFastWrap()<CR><Esc>')
+call SetLeaderCommand('(', 'wrap (', 'i()<Esc>:call AutoPairsFastWrap()<CR><Esc>')
+call SetLeaderCommand('{', 'wrap {', 'i{}<Esc>:call AutoPairsFastWrap()<CR><Esc>')
+call SetLeaderCommand('[', 'wrap [', 'i[]<Esc>:call AutoPairsFastWrap()<CR><Esc>')
+call SetLeaderCommand('b', 'barf', '<Plug>(sexp_emit_tail_element)')
+call SetLeaderCommand('B', 'barf backward', '<Plug>(sexp_emit_head_element)')
+call SetLeaderCommand('r', 'raise', '<Plug>(sexp_raise_element)')
+call SetLeaderCommand('R', 'raise list', '<Plug>(sexp_raise_list)')
+call SetLeaderCommand('s', 'slurp', '<Plug>(sexp_capture_next_element)')
+call SetLeaderCommand('S', 'slurp backward', '<Plug>(sexp_capture_prev_element)')
+call SetLeaderCommand('u', 'unwrap', '<Plug>(sexp_splice_list)')
+call SetLeaderCommand('uq', 'unquote', '<Esc>:call UnQuote()<CR>')
+nmap <silent><buffer> ( <Plug>(sexp_move_to_prev_bracket)
+xmap <silent><buffer> ( <Plug>(sexp_move_to_prev_bracket)
+omap <silent><buffer> ( <Plug>(sexp_move_to_prev_bracket)
+nmap <silent><buffer> ) <Plug>(sexp_move_to_next_bracket)
+xmap <silent><buffer> ) <Plug>(sexp_move_to_next_bracket)
+omap <silent><buffer> ) <Plug>(sexp_move_to_next_bracket)
+
+
+" Custom :terminal commands
+if !IsNeovim()
+  call SetLeaderCommand('e', 'execute file in :terminal', ':call ExecuteInTerminal()<CR>')
+  call SetLeaderCommand('t', 'launch :terminal', ':call term_start(&shell, {"vertical": 1})<CR>')
+  tmap <silent> <ScrollWheelUp> <c-w>:call EnterNormalModeInTerminal()<CR>
+  tnoremap <Esc><Esc> <C-\><C-N>
+  "if exists('tnoremap') | tnoremap <Esc><Esc> <C-\><C-N> | endif
+endif
+
+
+" Autosave on blur
+autocmd BufLeave,FocusLost * silent! wa
+
+
+" Move by wrapped lines
+nnoremap j gj
+nnoremap k gk
+
+
+" Move by 5s
+nnoremap <C-h> 5h
+nnoremap <C-j> 5j
+nnoremap <C-k> 5k
+nnoremap <C-l> 5l
+
+
+" Yank from cursor to EOL
+nnoremap Y y$
+
+
+" Delete into/paste from the 'd' register
+" nnoremap d  "dd
+" nnoremap dd "ddd
+" nnoremap D  "dD
+" nnoremap dp "dp
+" nnoremap dP "dP
+
+
+" Do not store deleted characters
+" nnoremap x "_x
+
+
+" Help docs in vertical split
+cmap vh vert help<Space>
+
+
+" Sloppy quit
+command! WQ wq
+command! Wq wq
+command! W w
+command! Q q
+
+
+" Cycle through buffers like tabs
+nnoremap <silent> L :call TabNext()<CR>
+nnoremap <silent> H :call TabPrev()<CR>
+
+
+"Ctrl-q to exit insert mode. Requires 'stty -ixon' in .bashrc
+inoremap <C-q> <Esc>
+
+
+" Ctrl-q to quit. Requires 'stty -ixon' in .bashrc
+nnoremap <silent> <C-q> <Esc>:call QuitBuffer()<CR>
+cnoremap <silent> <C-q> <Esc>:call QuitBuffer()<CR>
+if HasTerminalBuffer()
+  tnoremap <silent> <C-q> <C-\><C-N>:call QuitBuffer()<CR>
+endif
+" Per default, netrw leaves unmodified buffers open. This autocommand
+" deletes netrw's buffer once it's hidden (using ':q', for example)
+"autocmd FileType netrw setl bufhidden=delete
+
+
+" Ctrl-s to save. Requires 'stty -ixon' in .bashrc
+nnoremap <silent> <C-s> :w<CR>
+inoremap <silent> <C-s> <Esc>:w<CR>i
+vnoremap <silent> <C-s> <Esc>:w<CR>
+
+
+" :Scratch to open a scratch buffer
+command! Scratch new | setlocal bt=nofile bh=wipe nobl noswapfile nu
+
+
+" No SQL completion
+let g:omni_sql_no_default_maps = 1
+let g:dbext_default_usermaps = 0
+
+
+" vim-airline
+let g:airline_theme='simple'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'jsformatter'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#branch#format = 1
+let g:airline#extensions#branch#displayed_head_limit = 16
+let g:airline_skip_empty_sections = 1
+let g:airline_section_x = ''
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+let airline#extensions#coc#error_symbol = '✘'
+let airline#extensions#coc#warning_symbol = '⚠'
+let s:z_parts = ['windowswap', 'obsession', 'linenr', 'maxlinenr', ':%v']
+let g:airline_section_z = airline#section#create(s:z_parts)
+call extend(g:airline_symbols, { 'linenr': '', 'maxlinenr': '' })
+set laststatus=0  " always show status bar
+set noruler       " hide row/col info in status line
+set noshowmode    " hide insert, visual, etc
+set noshowcmd     " hide commands in status line
+
+
+" vim-autoformat for SQL
+let g:formatdef_sql =
+  \ '"sqlformat --reindent --keywords upper --identifiers lower -"'
+let g:formatters_sql = ['sql']
+let g:autoformat_verbosemode=1
+let g:leaderGuide_map['='] = ['Autoformat', 'format file']
+ 
+
+" Startify: Startup screen and session management
+let g:startify_custom_header = GetCustomHeader()
+let g:startify_bookmarks = ListNERDTreeBookmarks()
+let g:startify_change_to_vcs_root = 1
+let g:startify_session_persistence = 1
+let g:startify_session_sort = 1
+let g:startify_session_number = 10
+" let g:startify_change_to_dir = 0
+autocmd VimLeavePre * silent execute 'SSave! ' . GetUniqueSessionName()
+autocmd User Startified for key in ['t', 'T'] |
+      \ execute 'nunmap <buffer>' key | endfor
+
+" returns all modified files of the current git repo
+" `2>/dev/null` makes the command fail quietly, so that when we are not
+" in a git repo, the list will be empty
+function! s:gitModified()
+  let files = systemlist('git ls-files -m 2>/dev/null')
+  return map(files, "{'line': v:val, 'path': v:val}")
+endfunction
+
+" same as above, but show untracked files
+function! s:gitUntracked()
+  let files = systemlist('git ls-files -o --exclude-standard 2>/dev/null')
+  return map(files, "{'line': v:val, 'path': v:val}")
+endfunction
+
+let g:startify_lists = [
+  \ { 'type': 'files',     'header': ['   MRU']            },
+  \ { 'type': 'sessions',  'header': ['   Sessions']       },
+  \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+  \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
+  \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
+  \ { 'type': 'commands',  'header': ['   Commands']       },
+  \ ]
+
+
+" NERDTree: File browser
+"let g:NERDTreeChDirMode = 2
+let NERDTreeQuitOnOpen=1
+let NERDTreeWinSize=45
+let NERDTreeShowLineNumbers=0
+let NERDTreeMapOpenInTab = ''
+autocmd BufEnter * call SyncNERDTreeToOpenBuffers()
+nnoremap <silent> t :call ToggleNERDTree()<CR>
+
+
+" CtrlP: Fuzzy file search
+let g:ctrlp_working_path_mode = 'rw'
+let g:ctrlp_dotfiles = 1
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]((node_modules|DS_Store|dist|build|bootstrap|reports)|\.(git|hg|svn|next))$',
+  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg|min|swp.*)$' }
+
+
+" CtrlSF: Search/replace text
+let g:ctrlsf_default_root = 'project'
+let g:ctrlsf_auto_focus = { "at": "start" }
+let g:ctrlsf_default_view_mode = 'compact'
+let g:ctrlsf_auto_close = { "normal" : 0, "compact": 1 }
+let g:ctrlsf_winsize = '80'
+
+
+" Fugitive: Git integration
+let g:github_enterprise_urls = ['https://github.tumblr.net']
+
+
+" vim-livedown
+let g:livedown_autorun = 0
+let g:livedown_open = 1
+let g:livedown_port = 1336
+
+
+" vim-closetag
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.erb,*.ascx,*.vue,*.js'
+
+
+" auto-pairs
+let g:AutoPairsMapSpace = 1
+
+
+" vim-sexp
+let g:sexp_enable_insert_mode_mappings = 0
+let g:sexp_insert_after_wrap = 0
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CoC: Intellisense
+
+" CoC requires a recent version of Node that may not be used by the project
+" let g:node_host_prog = '/usr/local/bin/neovim-node-host'
+
+" Enable to show LSP status in the statusbar.
+let g:airline#extensions#coc#enabled = 0
+
+let g:coc_config_home = '~/.vim'
+
+let g:coc_global_extensions = [
+  \ 'coc-sh',
+  \ 'coc-vimlsp',
+  \ 'coc-git',
+  \ 'coc-html',
+  \ 'coc-css',
+  \ 'coc-eslint',
+  \ 'coc-tsserver',
+  \ 'coc-prettier',
+  \ 'coc-json',
+  \ 'coc-phpls',
+  \ 'coc-sql',
+  \ 'coc-yaml',
+  \ 'coc-java',
+  \ 'coc-pyright',
+  \ 'coc-solargraph',
+  \ 'coc-clangd',
+  \ ]
+
+" Allow comments in json config
+autocmd FileType json syntax match Comment +\/\/.\+$+
+
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> gp <Plug>(coc-diagnostic-prev)
+nmap <silent> gn <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gt <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gh <Plug>(coc-action-doHover)
+nmap <silent> gs <Plug>(coc-action-doHover)
+
+" Tab through typeahead suggestions
+inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
