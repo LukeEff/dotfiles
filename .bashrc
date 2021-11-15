@@ -46,7 +46,7 @@ function parse_git_dirty {
 }
 
 export PS1="\u@\[\e[34m\]\h\[\e[m\]:\[\e[35m\]\`parse_git_branch\`\[\e[m\] "
-
+export PROMPT_COMMAND='echo -ne "\033]0;$PWD\007"'
 
 alias py='python'
 alias python='python3'
