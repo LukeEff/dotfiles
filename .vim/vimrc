@@ -246,8 +246,8 @@ command! Q q
 
 
 " Cycle through buffers like tabs
-nnoremap <silent> L :call TabNext()<CR>
-nnoremap <silent> H :call TabPrev()<CR>
+nnoremap <silent> <c-l> :call TabNext()<CR>
+nnoremap <silent> <c-h> :call TabPrev()<CR>
 
 
 "Ctrl-q to exit insert mode. Requires 'stty -ixon' in .bashrc
