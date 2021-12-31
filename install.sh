@@ -1,16 +1,16 @@
-mv .bashrc ~/.bashrc
-mv .bash_login ~/.bash_login
-mv .bash_profile ~/.bash_profile
-mv .profile ~/.profile
-mv .gitconfig ~/.gitconfig
-mv .vim ~/.vim
+cp .bashrc ~/.bashrc
+cp .bash_login ~/.bash_login
+cp .bash_profile ~/.bash_profile
+cp .profile ~/.profile
+cp .gitconfig ~/.gitconfig
+cp -r .vim ~/.vim
 
 # Mac OS
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	brew install neovim
-	mv .iterm2/plist ~/Library/Preferences/com.googlecode.iterm2.plist	
+	cp .iterm2/plist ~/Library/Preferences/com.googlecode.iterm2.plist	
 	echo "Installed dotfiles for MacOS."
 fi
 
