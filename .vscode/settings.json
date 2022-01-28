@@ -1,0 +1,35 @@
+{
+    "workbench.iconTheme": "vs-nomo-dark",
+    "workbench.colorTheme": "Dopamina Dark Theme",
+    "react-native-tools.networkInspector.consoleLogsColorTheme": "Dark",
+    "prettier.singleQuote": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "git.autofetch": true,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "window.zoomLevel": 2,
+
+   "workbench.editor.enablePreview": false,
+   "workbench.editor.enablePreviewFromQuickOpen": false, 
+    
+
+    // Vim
+    "vim.useCtrlKeys": true,
+    "vim.normalModeKeyBindings": [
+        {
+            "before": ["t"],
+            "commands": [
+               "workbench.files.action.showActiveFileInExplorer" 
+            ]
+        }
+    ],
+
+ 
+
+}
