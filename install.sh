@@ -1,21 +1,38 @@
-cp .bashrc ~/.bashrc
-cp .bash_login ~/.bash_login
-cp .bash_profile ~/.bash_profile
-cp .profile ~/.profile
-cp .gitconfig ~/.gitconfig
-cp -r .vim ~/.vim
+#!/bin/bash
 
 # Mac OS
-
 if [[ "$OSTYPE" == "darwin"* ]]; then
+
+	# Variables
+	HOME=/Users/$(whoami)
+	DOTFILES=$HOME/.dotfiles
+
+	# Install 
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	brew install neovim
-	cp .iterm2/plist ~/Library/Preferences/com.googlecode.iterm2.plist	
+	brew install --cask visual-studio-code
+	brew install --cask intellij-idea
+
+	# Bash configuration 
+	ln -s $DOTFILES/.bashrc $HOME/.bashrc
+	ln -s $DOTFILES/.bash_login $HOME/.bash_login
+	ln -s $DOTFILES/.bash_profile $HOME/.bash_profile
+	ln -s $DOTFILES/.profile $HOME/.profile
+	ln -s $DOTFILES/.bash_login $HOME/.bash_login
+
+	# VSCode
+	ln -s $DOTFILES/.vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
+	ln -s $DOTFILES/.vscode/keybindings.json $HOME/Library/Application\ Support/Code/User/keybindings.json
+
+	# Misc.
+	ln -s $DOTFILES/.vim $HOME/.vim
+	ln -s $DOTFILES/.gitconfig $HOME/.gitconfig
+	ln -s $DOTFILES/.iterm2/plist $HOME/Library/Preferences/com.googlecode.iterm2.plist/
+
 	echo "Installed dotfiles for MacOS."
 fi
 
 # Linux
-
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	sudo apt install neovim
 	
