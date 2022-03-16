@@ -1,35 +1,68 @@
 {
-    "workbench.iconTheme": "vs-nomo-dark",
-    "workbench.colorTheme": "Dopamina Dark Theme",
-    "react-native-tools.networkInspector.consoleLogsColorTheme": "Dark",
-    "prettier.singleQuote": true,
-    "editor.formatOnSave": true,
-    "editor.formatOnPaste": true,
-    "[javascriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[javascript]": {
+  "workbench.iconTheme": "vs-nomo-dark",
+  "workbench.colorTheme": "Dopamina Dark Theme",
+  "react-native-tools.networkInspector.consoleLogsColorTheme": "Dark",
+  "prettier.singleQuote": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "git.autofetch": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+
+  // Vim
+  "vim.useCtrlKeys": true,
+  "vim.normalModeKeyBindings": [
+    {
+      "before": ["t"],
+      "commands": ["workbench.files.action.showActiveFileInExplorer"]
     },
-    "git.autofetch": true,
-    "javascript.updateImportsOnFileMove.enabled": "always",
-    "window.zoomLevel": 2,
+    {
+      "before": ["T"],
+      "commands": ["workbench.action.toggleSidebarVisibility"]
+    },
+    {
+      "before": ["ctrl", "q"],
+      "commands": [
+        "workbench.action.files.save",
+        "workbench.action.closeActiveEditor"
+      ]
+    },
+    {
+      "before": ["space", "."],
+      "commands": ["workbench.action.openSettingsJson"]
+    },
+    {
+      "before": ["space", ","],
+      "commands": ["workbench.action.openGlobalKeybindingsFile"]
+    },
+    {
+      "before": ["n"],
+      "commands": [
+        "workbench.action.files.showOpenedFileInNewWindow",
+        "workbench.action.closeActiveEditor"
+      ]
+    }
+  ],
 
-   "workbench.editor.enablePreview": false,
-   "workbench.editor.enablePreviewFromQuickOpen": false, 
-    
-
-    // Vim
-    "vim.useCtrlKeys": true,
-    "vim.normalModeKeyBindings": [
-        {
-            "before": ["t"],
-            "commands": [
-               "workbench.files.action.showActiveFileInExplorer" 
-            ]
-        }
-    ],
-
- 
-
+  "[ruby]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
+  "files.autoSave": "afterDelay",
+  "C_Cpp.clang_format_fallbackStyle": "{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",
+  "workbench.activityBar.visible": false,
+  "workbench.statusBar.visible": false,
+  "workbench.tips.enabled": false,
+  "window.newWindowDimensions": "offset",
+  "timeline.excludeSources": [],
+  "workbench.startupEditor": "none",
+  "window.zoomLevel": 4
 }
