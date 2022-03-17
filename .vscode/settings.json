@@ -13,45 +13,65 @@
   },
   "git.autofetch": true,
   "javascript.updateImportsOnFileMove.enabled": "always",
-
   "workbench.editor.enablePreview": false,
   "workbench.editor.enablePreviewFromQuickOpen": false,
-
   // Vim
   "vim.useCtrlKeys": true,
   "vim.normalModeKeyBindings": [
     {
-      "before": ["t"],
-      "commands": ["workbench.files.action.showActiveFileInExplorer"]
+      "before": [
+        "t"
+      ],
+      "commands": [
+        "workbench.files.action.showActiveFileInExplorer"
+      ]
     },
     {
-      "before": ["T"],
-      "commands": ["workbench.action.toggleSidebarVisibility"]
+      "before": [
+        "T"
+      ],
+      "commands": [
+        "workbench.action.toggleSidebarVisibility"
+      ]
     },
     {
-      "before": ["ctrl", "q"],
+      "before": [
+        "ctrl",
+        "q"
+      ],
       "commands": [
         "workbench.action.files.save",
         "workbench.action.closeActiveEditor"
       ]
     },
     {
-      "before": ["space", "."],
-      "commands": ["workbench.action.openSettingsJson"]
+      "before": [
+        "space",
+        "."
+      ],
+      "commands": [
+        "workbench.action.openSettingsJson"
+      ]
     },
     {
-      "before": ["space", ","],
-      "commands": ["workbench.action.openGlobalKeybindingsFile"]
+      "before": [
+        "space",
+        ","
+      ],
+      "commands": [
+        "workbench.action.openGlobalKeybindingsFile"
+      ]
     },
     {
-      "before": ["n"],
+      "before": [
+        "n"
+      ],
       "commands": [
         "workbench.action.files.showOpenedFileInNewWindow",
         "workbench.action.closeActiveEditor"
       ]
     }
   ],
-
   "[ruby]": {
     "editor.insertSpaces": true,
     "editor.tabSize": 2
@@ -64,5 +84,5 @@
   "window.newWindowDimensions": "offset",
   "timeline.excludeSources": [],
   "workbench.startupEditor": "none",
-  "window.zoomLevel": 4
+  "window.zoomLevel": 2
 }
