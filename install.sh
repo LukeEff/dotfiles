@@ -9,8 +9,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	DOTFILES=$HOME/dotfiles
 
 	# Install 
-	#/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	brew install neovim
+	brew install rbenv
 	brew install --cask visual-studio-code
 	brew install --cask intellij-idea
 
@@ -18,7 +19,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 		rm -rf $HOME/$file
 		ln -s $DOTFILES/$file $HOME/$file
 	done
-
+	
 	# VSCode
 	rm $HOME/Library/Application\ Support/Code/User/settings.json
 	rm $HOME/Library/Application\ Support/Code/User/keybindings.json
