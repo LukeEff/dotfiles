@@ -15,6 +15,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	brew install maven
 	brew install gradle
 	brew install docker
+	brew install java
 	brew install --cask visual-studio-code
 	brew install --cask intellij-idea
 
