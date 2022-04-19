@@ -1,7 +1,6 @@
 #!/bin/bash
 homeFiles=(".bashrc" ".bash_login" ".bash_profile" ".profile" ".bash_login" ".vim" ".gitconfig") 
 
-# Mac OS
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
 	# Variables
@@ -12,6 +11,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	brew install neovim
 	brew install rbenv
+	brew install mysql
 	brew install --cask visual-studio-code
 	brew install --cask intellij-idea
 
