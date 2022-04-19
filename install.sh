@@ -12,6 +12,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	brew install neovim
 	brew install rbenv
 	brew install mysql
+	brew install maven
 	brew install --cask visual-studio-code
 	brew install --cask intellij-idea
 
