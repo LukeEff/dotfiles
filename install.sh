@@ -24,6 +24,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	done
 	
 	# VSCode
+	mkdir -p $HOME/Library/Application\ Support/Code/User/
 	rm $HOME/Library/Application\ Support/Code/User/settings.json
 	rm $HOME/Library/Application\ Support/Code/User/keybindings.json
 	ln -s $DOTFILES/.vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
