@@ -1,6 +1,11 @@
 #!/bin/bash
 homeFiles=(".bashrc" ".bash_login" ".bash_profile" ".profile" ".bash_login" ".vim" ".gitconfig") 
 
+# Update all Wallpapers
+function wallpaper() {
+    sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set value = '$1'" && killall Dock 
+}
+
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
 	# Variables
@@ -37,6 +42,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	done
 
 	# Preferences
+	wallpaper ~/dotfiles/.linux/background.jpg
 	defaults write com.apple.finder AppleShowAllFiles TRUE
 	defaults write com.apple.dock orientation left 
 	defaults write com.apple.dock tilesize 65
