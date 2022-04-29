@@ -26,6 +26,11 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	brew install --cask visual-studio-code
 	brew install --cask intellij-idea
 
+	# Install from app store
+	mas install 441258766 # Magnet
+	mas install 497799835 # Xcode
+	mas upgrade 
+
 	for file in ${homeFiles[@]}; do
 		rm -rf $HOME/$file
 		ln -s $DOTFILES/$file $HOME/$file
