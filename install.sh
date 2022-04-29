@@ -43,11 +43,14 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
 	# Preferences
 	wallpaper ~/dotfiles/.linux/background.jpg
-	defaults write com.apple.finder AppleShowAllFiles TRUE
+	defaults write com.apple.finder AppleShowAllFiles -bool true 
+	defaults write com.apple.finder AppleShowAllExtensions -bool true
+	defaults write com.apple.finder WarnOnEmptyTrash -bool false
+
 	defaults write com.apple.dock orientation left 
-	defaults write com.apple.dock tilesize 65
-	defaults write com.apple.dock autohide 1
-	defaults write com.apple.dock largesize 128
+	defaults write com.apple.dock tilesize -int 65
+	defaults write com.apple.dock autohide -int 1
+	defaults write com.apple.dock largesize -int 128
 	killall Finder
 	killall Dock
 	
