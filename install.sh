@@ -20,6 +20,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	brew install node
 	brew install java
 	brew install firefox
+	brew install mas
 	brew install --cask slack
 	brew install --cask zoom
 	brew install --cask visual-studio-code
