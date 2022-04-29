@@ -27,6 +27,15 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 		rm -rf $HOME/$file
 		ln -s $DOTFILES/$file $HOME/$file
 	done
+
+	# Preferences
+	defaults write com.apple.finder AppleShowAllFiles TRUE
+	defaults write com.apple.dock orientation left 
+	defaults write com.apple.dock tilesize 65
+	defaults write com.apple.dock autohide 1
+	defaults write com.apple.dock largesize 128
+	killall Finder
+	killall Dock
 	
 	# VSCode
 	mkdir -p $HOME/Library/Application\ Support/Code/User/
