@@ -9,6 +9,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
 	# Install 
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	sudo chown -R $(whoami) /usr/local/Homebrew
+	chmod u+w /usr/local/Homebrew
 	brew install neovim
 	brew install rbenv
 	brew install mysql
