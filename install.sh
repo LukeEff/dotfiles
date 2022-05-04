@@ -42,17 +42,25 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	done
 
 	# Preferences
+	defaults write com.apple.LaunchServices "LSQuarantine" -bool "false" 
+
 	wallpaper ~/dotfiles/.linux/background.jpg
 	defaults write com.apple.finder AppleShowAllFiles -bool true 
 	defaults write com.apple.finder AppleShowAllExtensions -bool true
 	defaults write com.apple.finder WarnOnEmptyTrash -bool false
+	defaults write com.apple.finder "FXEnableExtensionChangeWarning" -bool "false"
 
+	defaults write com.apple.dock "show-recents" -bool "false"
+	defaults write com.apple.dock "mineffect" -string "suck"
 	defaults write com.apple.dock orientation left 
 	defaults write com.apple.dock tilesize -int 65
 	defaults write com.apple.dock autohide -int 1
 	defaults write com.apple.dock largesize -int 128
+
+	defaults write -globalDomain AppleInterfaceStyle Dark
 	killall Finder
 	killall Dock
+	sudo killall -HUP WindowServer
 	
 	# VSCode
 	mkdir -p $HOME/Library/Application\ Support/Code/User/
