@@ -41,6 +41,12 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 		ln -s $DOTFILES/$file $HOME/$file
 	done
 
+	# Vim config
+	mkdir -p $HOME/.config/nvim
+	ln -s $DOTFILES/.vim/vimrc $HOME/.config/nvim/vimrc
+	ln -s $DOTFILES/.vim/utils.vim $HOME/.config/nvim/utils.vim
+	ln -s $DOTFILES/.vim/init.vim $HOME/.config/nvim/init.vim
+
 	# Preferences
 	defaults write com.apple.LaunchServices "LSQuarantine" -bool "false" 
 
