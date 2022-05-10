@@ -1,5 +1,5 @@
 #!/bin/bash
-homeFiles=(".bashrc" ".bash_login" ".bash_profile" ".profile" ".bash_login" ".vim" ".gitconfig") 
+homeFiles=(".inputrc" ".bashrc" ".bash_login" ".bash_profile" ".profile" ".bash_login" ".vim" ".gitconfig") 
 
 # Update all Wallpapers
 function wallpaper() {
@@ -17,6 +17,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	sudo chown -R $(whoami) /usr/local/Homebrew
 	chmod u+w /usr/local/Homebrew
 	brew install neovim
+	brew install bash
 	brew install rbenv
 	brew install mysql
 	brew install maven
@@ -46,6 +47,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	ln -s $DOTFILES/.vim/vimrc $HOME/.config/nvim/vimrc
 	ln -s $DOTFILES/.vim/utils.vim $HOME/.config/nvim/utils.vim
 	ln -s $DOTFILES/.vim/init.vim $HOME/.config/nvim/init.vim
+
+	# Set updated bash as default
+	echo /usr/local/bin/bash | sudo tee -a /etc/shells
+	chsh -s /usr/local/bin/bash
 
 	# Preferences
 	defaults write com.apple.LaunchServices "LSQuarantine" -bool "false" 
