@@ -49,6 +49,9 @@ set -o vi
 export PS1="\u@\[\e[34m\]\h\[\e[m\]:\[\e[35m\]\`parse_git_branch\`\[\e[m\] "
 export PROMPT_COMMAND='echo -ne "\033]0;$PWD\007"'
 
+# docker argument for the format option
+export FORMAT="ID\t{{.ID}}\nNAME\t{{.Names}}\nImage\t{{.Image}}\nPORTS\t{{.Ports}}\nCOMMAND\t{{.Command}}\nCREATED\t{{.CreatedAt}}\nSTATUS\t{{.Status}}\n"
+
 alias py='python'
 alias python='python3'
 alias vi='nvim'
