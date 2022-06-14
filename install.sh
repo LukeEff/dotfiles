@@ -19,18 +19,18 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	brew install neovim
 	brew install bash
 	brew install rbenv
-	brew install mysql
+	#brew install mysql
 	brew install maven
 	brew install gradle
-	brew install docker
+	#brew install docker
 	brew install node
-	brew install java
-	brew install firefox
+	#brew install java
+	#brew install firefox
 	brew install mas
-	brew install --cask slack
-	brew install --cask zoom
-	brew install --cask visual-studio-code
-	brew install --cask intellij-idea
+	#brew install --cask slack
+	#brew install --cask zoom
+	#brew install --cask visual-studio-code
+	#brew install --cask intellij-idea
 
 	# Install from app store
 	mas install 441258766 # Magnet
