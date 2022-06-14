@@ -18,12 +18,12 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	chmod u+w /usr/local/Homebrew
 	brew install neovim
 	brew install bash
-	brew install rbenv
+	#brew install rbenv
 	#brew install mysql
-	brew install maven
-	brew install gradle
+	#brew install maven
+	#brew install gradle
 	#brew install docker
-	brew install node
+	#brew install node
 	#brew install java
 	#brew install firefox
 	brew install mas
